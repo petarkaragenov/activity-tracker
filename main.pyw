@@ -43,12 +43,14 @@ while True:
         if current_app not in in_btw_time:
             in_btw_time[current_app] = 0
 
-        if current_app not in process_time.keys():
-            process_time[current_app] = 0
-
-        in_btw_time[current_app] = in_btw_time[current_app] + 1/10
-        if in_btw_time[current_app] == 1.0:
+        in_btw_time[current_app] = in_btw_time[current_app] + 1
+        
+        if in_btw_time[current_app] == 60:
             in_btw_time[current_app] = 0
+
+            if current_app not in process_time.keys():
+                process_time[current_app] = 0
+
             process_time[current_app] = process_time[current_app] + 1
 
         with open(set_filename(), "w", newline='') as file:
@@ -56,4 +58,4 @@ while True:
             writer.writerow(process_time.keys())
             writer.writerow(process_time.values())
 
-        time.sleep(6)
+        time.sleep(1)
